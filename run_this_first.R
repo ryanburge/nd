@@ -1,7 +1,6 @@
 library(socsci)
 library(car)
 library(haven)
-library(janitor)
 source("D://theme.R")
 
 nd <- read_csv("D://nd/data.csv") %>% 
@@ -63,6 +62,11 @@ nd <- nd %>%
   mutate(asian = replace_na(asian, 0)) %>% 
   rename(other = Q95_5) %>% 
   mutate(other = replace_na(other, 0)) %>% 
+  mutate(race = frcode(white == 1 ~ 1,
+                       black == 1 ~ 2, 
+                       hispanic == 1 ~ 3, 
+                       asian == 1 ~ 4,
+                       other == 1 ~ 5)) %>% 
   rename(educ = Q96) %>% 
   rename(gay = Q97) %>% 
   rename(marital = Q98) %>% 
