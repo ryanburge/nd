@@ -12,16 +12,22 @@ regg <- nd %>%
                        nonden==1 ~ "Non-Denominational")) %>% 
   mutate(educ=q96, samecomm=q99, income=q100, pid7 = q27)  %>% 
   mutate(ba = frcode(q16 == 1  ~ "Born-Again",
-                     q16 == 2 ~ "Not Born-Again"))
-  
+                     q16 == 2 ~ "Not Born-Again")) %>% 
+  mutate(size = car::recode(q24, "4=1; 7=2; 8=3; 9=4; 10=5; 11=6")) %>% 
+  mutate(nonden=car::recode(q3, "1=1; 2:17=0"))
 
-reg1 <- lm(polact ~ attend*nonden*ba + educ + income + pid7, data = regg)
 
-gg2 <- interact_plot(reg1, pred = attend, modx = nonden, mod2 = ba, interval = TRUE, int.width = .76, mod2.labels = c("Born-Again", "Not Born-Again"))
+reg1 <- lm(polact ~ I(size^2)*nonden + educ + income + pid7, data = regg)
+
+gg2 <- interact_plot(reg1, pred = size, modx = nonden, interval = TRUE, int.width = .76)
+
 
 gg2 + 
-  scale_x_continuous(labels = c("Less than\nOnce a Month", "Once\na Month", "2-3x\na Month", "Once\na Week", "2-3x\na Week", "Daily")) +
+  scale_x_continuous(breaks = c(1,2,3,4,5,6), labels = c("0-50", "51-100", "101-300", "301-500", "501-1000", "1000+")) +
   theme_gg("Josefin Sans") +
   theme(legend.position = "bottom") +
-  labs(x = "Church Attendance", y = "Number of Political Activities", title = "Impact of Attendance on Political Activity") +
-  ggsave("D://nd/polact_interact_ba.png", width = 12) 
+  labs(x = "Size of Church", y = "Number of Political Activities", title = "Impact of Church Size on Political Activity") +
+  ggsave("D://nd/graph_off/polact_interact_size.png", width = 8) 
+
+
+reg1 <- lm(polact ~ I(size^2) + educ + income + pid7 + nonden, data = regg)
