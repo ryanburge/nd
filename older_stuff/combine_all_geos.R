@@ -1,0 +1,23 @@
+aaa1  <-  read_csv("D://yp_scrapes/with_geos/atl_complete.csv") %>% mutate(city = "Atlanta")
+aaa2  <-  read_csv("D://yp_scrapes/with_geos/boston_complete.csv") %>% mutate(city = "Boston")
+aaa3  <-  read_csv("D://yp_scrapes/with_geos/charlotte_complete.csv") %>% mutate(city = "Charlotte")
+aaa4  <-  read_csv("D://yp_scrapes/with_geos/chicago_complete.csv") %>% mutate(city = "Chicago")
+aaa5  <-  read_csv("D://yp_scrapes/with_geos/columbus_complete.csv") %>% mutate(city = "Columbus") %>% rename(name = text)
+aaa6  <-  read_csv("D://yp_scrapes/with_geos/dallas_complete.csv") %>% mutate(city = "Dallas")
+aaa7  <-  read_csv("D://yp_scrapes/with_geos/dc_complete.csv") %>% mutate(city = "D.C.")
+aaa8  <-  read_csv("D://yp_scrapes/with_geos/denver_complete.csv") %>% mutate(city = "Denver")
+aaa9  <-  read_csv("D://yp_scrapes/with_geos/houston_complete.csv") %>% mutate(city = "Houston")
+aaa10 <- read_csv("D://yp_scrapes/with_geos/la_complete.csv") %>% mutate(city = "Minneapolis")
+aaa11 <- read_csv("D://yp_scrapes/with_geos/miami_complete.csv") %>% mutate(city = "Miami")
+aaa12 <- read_csv("D://yp_scrapes/with_geos/nyc_complete.csv") %>% mutate(city = "NYC")
+aaa13 <- read_csv("D://yp_scrapes/with_geos/philadelphia_complete.csv") %>% mutate(city = "Philadelphia")
+aaa14 <- read_csv("D://yp_scrapes/with_geos/phoenix_complete.csv") %>% mutate(city = "Phoenix")
+aaa15 <- read_csv("D://yp_scrapes/with_geos/portland_complete.csv") %>% mutate(city = "Portland")
+aaa16 <- read_csv("D://yp_scrapes/with_geos/san_fran_complete.csv") %>% mutate(city = "San Francisco")
+aaa17 <- read_csv("D://yp_scrapes/with_geos/seattle_complete.csv") %>% mutate(city = "Seattle")
+aaa18 <- read_csv("D://yp_scrapes/with_geos/stl_complete.csv") %>% mutate(city = "St. Louis")
+
+all <- bind_df("aaa") %>% 
+  select(-place)
+
+write_csv(all, "D://nd/all_geocodes.csv") 

@@ -2,7 +2,7 @@ library(socsci)
 library(car)
 library(haven)
 library(psych)
-source("D://theme.R")
+source("D://nd/theme.R")
 
 nd <- read_csv("D://nd/data.csv") %>% 
   mutate(id = ResponseId)
@@ -58,9 +58,9 @@ nd <- nd %>% mutate(skills=q92_1+q92_2+q92_3+q92_4)
 nd <- nd %>% mutate(skillsc=car::recode(skills, "0=0; 1:4=1"))
 
 #Race Dummies
-nd <- nd %>% mutate(White=car::recode(q95_1, "NA=0"),
-                    Black=car::recode(q95_3, "NA=0"),
-                    Hispanic=car::recode(q95_4, "NA=0"))
+nd <- nd %>% mutate(white=car::recode(q95_1, "NA=0"),
+                    black=car::recode(q95_3, "NA=0"),
+                    hispanic=car::recode(q95_4, "NA=0"))
 
 #Other demographics
 nd <- nd %>% mutate(educ=q96,
